@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.green,
         // visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: ToDoListPage(title: 'ToDo App'),
+      home: ToDoListPage(),
     );
   }
 }
@@ -48,7 +48,54 @@ class _ToDoListPageState extends State<ToDoListPage> {
       appBar: AppBar(
         title: Text('남은 할 일'),
       ),
-      body: Container(),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: TextField(),
+                ),
+                RaisedButton(
+                  onPressed: () {},
+                  color: Colors.green,
+                  child: Text(
+                    '추가하기',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ],
+            ),
+            Expanded(
+              child: ListView(
+                children: _items.map((todo) => _buildItemWidget(todo)).toList(),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
+}
+
+Widget _buildItemWidget(ToDo todo) {
+  return ListTile(
+    onTap: () {
+      // 클릭시
+    },
+    trailing: IconButton(
+      icon: Icon(Icons.delete),
+      onPressed: () {},
+    ),
+    title: Text(
+      todo.title,
+      style: todo.isDone
+          ? TextStyle(
+              decoration: TextDecoration.lineThrough,
+              fontStyle: FontStyle.italic,
+            )
+          : null,
+    ),
+  );
 }
